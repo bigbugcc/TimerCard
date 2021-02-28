@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerCard", "TimerCard.csproj", "{0FF70AF0-DD04-4F8F-81E3-BA76C7C4F87F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FF70AF0-DD04-4F8F-81E3-BA76C7C4F87F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF70AF0-DD04-4F8F-81E3-BA76C7C4F87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF70AF0-DD04-4F8F-81E3-BA76C7C4F87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF70AF0-DD04-4F8F-81E3-BA76C7C4F87F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {304C2653-78D8-412A-8276-560DA819F881}
+	EndGlobalSection
+EndGlobal
