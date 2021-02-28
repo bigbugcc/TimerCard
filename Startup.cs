@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TimerCard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace TimerCard
 {
@@ -23,6 +25,9 @@ namespace TimerCard
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //string DBDir = "Filename="+System.IO.Directory.GetCurrentDirectory() + @"\DB\TimerCardDB.db";
+            string DBDir = @"Filename=E:/WorkSpace/YNNU/TimerCard/DB/TimerCardDB.db";
+            services.AddDbContext<ToDoContext>(options => options.UseSqlite(DBDir));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
