@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentEmail.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -62,6 +63,21 @@ namespace TimerCard.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(user);
+        }
+
+        public async Task<IActionResult> SendEmail([FromServices] IFluentEmail email)
+        {
+            var template = "你好@Model.Name先生, 请核实您的电话号码是否为@Model.Phone";
+            var result = await email//发送人
+               .SetFrom("lisi@126.com")
+               .To("zhangsan@qq.com")
+               .Subject("手机号核实")
+               //传递自定义POCO类
+               //.UsingTemplate<UserInfo>(template, new UserInfo { Name = "张三", Phone吗 = "100110119120" })
+               //或传递匿名对象
+               .UsingTemplate(template, new { Name = "张三", Phone吗 = "100110119120" })
+               .SendAsync();
+            return View();
         }
 
         // GET: Users/Edit/5
