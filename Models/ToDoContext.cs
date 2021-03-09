@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TimerCard.Models;
 
 
 namespace TimerCard.Models
@@ -16,7 +17,9 @@ namespace TimerCard.Models
 
         public DbSet<User> User{get;set;}
 
-        public DbSet<CardLog> CardLog { get; set; }
+        public DbSet<TimerCard.Models.Attribution> Attribution { get; set; }
+
+        public DbSet<TimerCard.Models.Log> Log { get; set; }
 
     }
 }

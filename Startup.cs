@@ -28,16 +28,17 @@ namespace TimerCard
         {
             services.AddControllersWithViews();
             //string DBDir = "Filename="+System.IO.Directory.GetCurrentDirectory() + @"\DB\TimerCardDB.db";
-            services.AddDbContext<ToDoContext>(options => options.UseSqlite(Configuration.GetConnectionString("DataBaseDir")));
+            //Filename=E:/WorkSpace/YNNU/TimerCard/DB/TimerCardDB.db
+            services.AddDbContext<ToDoContext>(options => options.UseSqlite(Configuration["DataBaseDir"].ToString()));
             //” º˛“¿¿µ◊¢»Î
-            services.AddFluentEmail(Configuration.GetConnectionString("EmailSmtpUser"))
-                .AddSmtpSender(new SmtpClient
-                {
-                    Host = Configuration.GetConnectionString("EmailSmtpHost"),
-                    UseDefaultCredentials = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(Configuration.GetConnectionString("EmailSmtpAccount"), Configuration.GetConnectionString("EmailSmtpPasswd"))
-                });
+            //services.AddFluentEmail(Configuration.GetConnectionString("EmailSmtpUser"))
+            //    .AddSmtpSender(new SmtpClient
+            //    {
+            //        Host = Configuration.GetConnectionString("EmailSmtpHost"),
+            //        UseDefaultCredentials = true,
+            //        DeliveryMethod = SmtpDeliveryMethod.Network,
+            //        Credentials = new NetworkCredential(Configuration.GetConnectionString("EmailSmtpAccount"), Configuration.GetConnectionString("EmailSmtpPasswd"))
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +62,7 @@ namespace TimerCard
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Users}/{action=Index}/{id?}");
             });
         }
     }

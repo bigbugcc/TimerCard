@@ -12,18 +12,15 @@ namespace TimerCard.Models
 
         //姓名
         public string Name { get; set; }
+
+        //归属id
+        public string AttributionId { get; set; }
         
         //学号
         public string StuId { get; set; }
         
-        //专业
-        public string Discipline{ get; set; }
-
         //班主任姓名
         public string TeachName { get; set; }
-        
-        //体温
-        public double Temperature { get; set; }
 
         //Email
         public string Email { get; set; }

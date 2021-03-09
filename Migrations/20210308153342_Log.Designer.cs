@@ -9,8 +9,8 @@ using TimerCard.Models;
 namespace TimerCard.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    [Migration("20210228143247_CardUserId")]
-    partial class CardUserId
+    [Migration("20210308153342_Log")]
+    partial class Log
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,31 +18,57 @@ namespace TimerCard.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
 
-            modelBuilder.Entity("TimerCard.Models.CardLog", b =>
+            modelBuilder.Entity("TimerCard.Models.Attribution", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("IsEmailMsg")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PlayStatus")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PlayStatusAgain")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("PlayTime")
+                    b.Property<string>("classDescription")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UIdId")
+                    b.Property<string>("classId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("collegeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("majorId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UIdId");
+                    b.ToTable("Attribution");
+                });
 
-                    b.ToTable("CardLog");
+            modelBuilder.Entity("TimerCard.Models.Log", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Creator")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Msg")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Uid")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("TimerCard.Models.User", b =>
@@ -50,7 +76,7 @@ namespace TimerCard.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discipline")
+                    b.Property<string>("AttributionId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -77,21 +103,9 @@ namespace TimerCard.Migrations
                     b.Property<string>("TeachName")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Temperature")
-                        .HasColumnType("REAL");
-
                     b.HasKey("Id");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("TimerCard.Models.CardLog", b =>
-                {
-                    b.HasOne("TimerCard.Models.User", "UId")
-                        .WithMany()
-                        .HasForeignKey("UIdId");
-
-                    b.Navigation("UId");
                 });
 #pragma warning restore 612, 618
         }

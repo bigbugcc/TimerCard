@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentEmail.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,22 +9,33 @@ using TimerCard.Models;
 
 namespace TimerCard.Controllers
 {
-    public class UsersController : Controller
+    public class AttributionsController : Controller
     {
         private readonly ToDoContext _context;
 
-        public UsersController(ToDoContext context)
+        public AttributionsController(ToDoContext context)
         {
             _context = context;
         }
 
-        // GET: Users
+        // GET: Attributions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            return View(await _context.Attribution.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        public async Task<List<Attribution>> GetAttrs()
+        {
+            List<Attribution> attributions = new List<Attribution>();
+            var data = await _context.Attribution.ToListAsync();
+            foreach (var item in data) {
+                attributions.Add(new Attribution {Id = item.Id,classDescription = item.classDescription });
+            }  
+
+            return attributions;
+        }
+
+        // GET: Attributions/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -33,55 +43,40 @@ namespace TimerCard.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
+            var attribution = await _context.Attribution
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (attribution == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(attribution);
         }
 
-        // GET: Users/Create
+        // GET: Attributions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Attributions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,StuId,AttributionId,Email,TeachName,PhoneNumber,EmergencyContact,MergencyPeoplePhone,Langtineadress")] User user)
+        public async Task<IActionResult> Create([Bind("Id,classDescription,collegeId,majorId,classId,customerId")] Attribution attribution)
         {
             if (ModelState.IsValid)
             {
-                user.Id = Guid.NewGuid().ToString();
-                _context.Add(user);
+                attribution.Id = Guid.NewGuid().ToString();
+                _context.Add(attribution);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(attribution);
         }
 
-        public async Task<IActionResult> SendEmail([FromServices] IFluentEmail email)
-        {
-            var template = "你好@Model.Name先生, 请核实您的电话号码是否为@Model.Phone";
-            var result = await email//发送人
-               .SetFrom("lisi@126.com")
-               .To("zhangsan@qq.com")
-               .Subject("手机号核实")
-               //传递自定义POCO类
-               //.UsingTemplate<UserInfo>(template, new UserInfo { Name = "张三", Phone吗 = "100110119120" })
-               //或传递匿名对象
-               .UsingTemplate(template, new { Name = "张三", Phone吗 = "100110119120" })
-               .SendAsync();
-            return View();
-        }
-
-        // GET: Users/Edit/5
+        // GET: Attributions/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -89,22 +84,22 @@ namespace TimerCard.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var attribution = await _context.Attribution.FindAsync(id);
+            if (attribution == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(attribution);
         }
 
-        // POST: Users/Edit/5
+        // POST: Attributions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,StuId,Email,TeachName,PhoneNumber,EmergencyContact,MergencyPeoplePhone,Langtineadress")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,classDescription,collegeId,majorId,classId,customerId")] Attribution attribution)
         {
-            if (id != user.Id)
+            if (id != attribution.Id)
             {
                 return NotFound();
             }
@@ -113,12 +108,12 @@ namespace TimerCard.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(attribution);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!AttributionExists(attribution.Id))
                     {
                         return NotFound();
                     }
@@ -129,10 +124,10 @@ namespace TimerCard.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(attribution);
         }
 
-        // GET: Users/Delete/5
+        // GET: Attributions/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -140,30 +135,30 @@ namespace TimerCard.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
+            var attribution = await _context.Attribution
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (attribution == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(attribution);
         }
 
-        // POST: Users/Delete/5
+        // POST: Attributions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            _context.User.Remove(user);
+            var attribution = await _context.Attribution.FindAsync(id);
+            _context.Attribution.Remove(attribution);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(string id)
+        private bool AttributionExists(string id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.Attribution.Any(e => e.Id == id);
         }
     }
 }

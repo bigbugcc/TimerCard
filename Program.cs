@@ -21,6 +21,7 @@ namespace TimerCard
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(options => options.ListenAnyIP(5000));
                 });
     }
 }

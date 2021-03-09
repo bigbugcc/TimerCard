@@ -4,65 +4,65 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>用户信息填写</h1>
 
-<h4>User</h4>
+<h4>UserInfo</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" onload="GetAttr()">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">姓名(请勿填错)</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StuId" class="control-label"></label>
+                <label asp-for="StuId" class="control-label">学号(请勿填错)</label>
                 <input asp-for="StuId" class="form-control" />
                 <span asp-validation-for="StuId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Discipline" class="control-label"></label>
-                <input asp-for="Discipline" class="form-control" />
-                <span asp-validation-for="Discipline" class="text-danger"></span>
+                <label asp-for="AttributionId" class="control-label">班级(请勿填错)</label>
+                <select asp-for="AttributionId" id="Attrs" class="form-control combobox">
+                    <option value="">请选择</option>
+                </select>
+                <span asp-validation-for="AttributionId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">电子邮件(请勿填错)</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TeachName" class="control-label"></label>
-                <input asp-for="TeachName" class="form-control" />
-                <span asp-validation-for="TeachName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Temperature" class="control-label"></label>
-                <input asp-for="Temperature" class="form-control" />
-                <span asp-validation-for="Temperature" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
+                <label asp-for="PhoneNumber" class="control-label">本人联系电话</label>
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmergencyContact" class="control-label"></label>
+                <label asp-for="TeachName" class="control-label">班主任</label>
+                <input asp-for="TeachName" class="form-control" />
+                <span asp-validation-for="TeachName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmergencyContact" class="control-label">紧急联系人姓名</label>
                 <input asp-for="EmergencyContact" class="form-control" />
                 <span asp-validation-for="EmergencyContact" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MergencyPeoplePhone" class="control-label"></label>
+                <label asp-for="MergencyPeoplePhone" class="control-label">紧急联系人电话</label>
                 <input asp-for="MergencyPeoplePhone" class="form-control" />
                 <span asp-validation-for="MergencyPeoplePhone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Langtineadress" class="control-label"></label>
+                <label asp-for="Langtineadress" class="control-label">本人详细居住地址</label>
                 <input asp-for="Langtineadress" class="form-control" />
                 <span asp-validation-for="Langtineadress" class="text-danger"></span>
             </div>
             <div class="form-group">
+
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -76,3 +76,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script src="~/js/getattr.js"></script>

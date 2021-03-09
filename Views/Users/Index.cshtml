@@ -1,43 +1,40 @@
 ﻿@model IEnumerable<TimerCard.Models.User>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "自动打卡";
 }
 
-<h1>Index</h1>
+<h1>完美校园打卡 (内测)</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">👉 加入</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                姓名
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StuId)
+                学号
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Discipline)
+                电子邮件
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TeachName)
+                本人联系电话
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Temperature)
+                班主任
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                紧急联系人姓名
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmergencyContact)
+                紧急联系人电话
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MergencyPeoplePhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Langtineadress)
+                本人详细居住地址
             </th>
             <th></th>
         </tr>
@@ -51,17 +48,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StuId)
             </td>
+            <th>
+                @Html.DisplayFor(modelItem=> item.Email)
+            </th>
             <td>
-                @Html.DisplayFor(modelItem => item.Discipline)
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TeachName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Temperature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EmergencyContact)

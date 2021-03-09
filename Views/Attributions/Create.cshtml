@@ -1,0 +1,49 @@
+﻿@model TimerCard.Models.Attribution
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Attribution</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="classDescription" class="control-label"></label>
+                <input asp-for="classDescription" class="form-control" />
+                <span asp-validation-for="classDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="collegeId" class="control-label"></label>
+                <input asp-for="collegeId" class="form-control" />
+                <span asp-validation-for="collegeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="majorId" class="control-label"></label>
+                <input asp-for="majorId" class="form-control" />
+                <span asp-validation-for="majorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="classId" class="control-label"></label>
+                <input asp-for="classId" class="form-control" />
+                <span asp-validation-for="classId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

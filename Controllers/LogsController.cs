@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentEmail.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,22 +9,22 @@ using TimerCard.Models;
 
 namespace TimerCard.Controllers
 {
-    public class UsersController : Controller
+    public class LogsController : Controller
     {
         private readonly ToDoContext _context;
 
-        public UsersController(ToDoContext context)
+        public LogsController(ToDoContext context)
         {
             _context = context;
         }
 
-        // GET: Users
+        // GET: Logs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            return View(await _context.Log.ToListAsync());
         }
 
-        // GET: Users/Details/5
+        // GET: Logs/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -33,55 +32,39 @@ namespace TimerCard.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
+            var log = await _context.Log
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (log == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(log);
         }
 
-        // GET: Users/Create
+        // GET: Logs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Logs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,StuId,AttributionId,Email,TeachName,PhoneNumber,EmergencyContact,MergencyPeoplePhone,Langtineadress")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Title,Uid,UName,Type,Creator,Date,Msg")] Log log)
         {
             if (ModelState.IsValid)
             {
-                user.Id = Guid.NewGuid().ToString();
-                _context.Add(user);
+                _context.Add(log);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(log);
         }
 
-        public async Task<IActionResult> SendEmail([FromServices] IFluentEmail email)
-        {
-            var template = "你好@Model.Name先生, 请核实您的电话号码是否为@Model.Phone";
-            var result = await email//发送人
-               .SetFrom("lisi@126.com")
-               .To("zhangsan@qq.com")
-               .Subject("手机号核实")
-               //传递自定义POCO类
-               //.UsingTemplate<UserInfo>(template, new UserInfo { Name = "张三", Phone吗 = "100110119120" })
-               //或传递匿名对象
-               .UsingTemplate(template, new { Name = "张三", Phone吗 = "100110119120" })
-               .SendAsync();
-            return View();
-        }
-
-        // GET: Users/Edit/5
+        // GET: Logs/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -89,22 +72,22 @@ namespace TimerCard.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var log = await _context.Log.FindAsync(id);
+            if (log == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View(log);
         }
 
-        // POST: Users/Edit/5
+        // POST: Logs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,StuId,Email,TeachName,PhoneNumber,EmergencyContact,MergencyPeoplePhone,Langtineadress")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Title,Uid,UName,Type,Creator,Date,Msg")] Log log)
         {
-            if (id != user.Id)
+            if (id != log.Id)
             {
                 return NotFound();
             }
@@ -113,12 +96,12 @@ namespace TimerCard.Controllers
             {
                 try
                 {
-                    _context.Update(user);
+                    _context.Update(log);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!LogExists(log.Id))
                     {
                         return NotFound();
                     }
@@ -129,10 +112,10 @@ namespace TimerCard.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(log);
         }
 
-        // GET: Users/Delete/5
+        // GET: Logs/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -140,30 +123,30 @@ namespace TimerCard.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
+            var log = await _context.Log
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
+            if (log == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            return View(log);
         }
 
-        // POST: Users/Delete/5
+        // POST: Logs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            _context.User.Remove(user);
+            var log = await _context.Log.FindAsync(id);
+            _context.Log.Remove(log);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserExists(string id)
+        private bool LogExists(string id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.Log.Any(e => e.Id == id);
         }
     }
 }
