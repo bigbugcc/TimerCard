@@ -30,18 +30,9 @@ namespace TimerCard
             //string DBDir = "Filename="+System.IO.Directory.GetCurrentDirectory() + @"\DB\TimerCardDB.db";
             //Filename=E:/WorkSpace/YNNU/TimerCard/DB/TimerCardDB.db
             services.AddDbContext<ToDoContext>(options => options.UseSqlite(Configuration["DataBaseDir"].ToString()));
-            //” º˛“¿¿µ◊¢»Î
-            //services.AddFluentEmail(Configuration.GetConnectionString("EmailSmtpUser"))
-            //    .AddSmtpSender(new SmtpClient
-            //    {
-            //        Host = Configuration.GetConnectionString("EmailSmtpHost"),
-            //        UseDefaultCredentials = true,
-            //        DeliveryMethod = SmtpDeliveryMethod.Network,
-            //        Credentials = new NetworkCredential(Configuration.GetConnectionString("EmailSmtpAccount"), Configuration.GetConnectionString("EmailSmtpPasswd"))
-            //    });
+            
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

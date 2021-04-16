@@ -26,7 +26,7 @@ def PCardInfo(user, token):
                     "deptid": AttrInfo['classId'],
                     "text": AttrInfo['classDescription']
                 },
-                "areaStr": utils.GetSchoolLocations(),
+                "areaStr": appsettings.GetSchoolLocations(),
                 "reportdate": round(time.time()*1000),
                 "customerid": customerid,
                 "deptid": AttrInfo['classId'],
@@ -139,9 +139,7 @@ def PCardInfo(user, token):
 
 
 if __name__ == '__main__':
-    # token = login.start_Login("13759151349", "hn235689", "865166023950952")
-    # token = login.start_Login("18468057774", "zpc12345678", "865166023950952")
-    token = login.start_Login("15687231638", "wyl13887242608", "865166023950952")
+    token = login.start_Login(appsettings.Account, appsettings.Password,appsettings.IMEI)
     UserInfo = login.GetUserInfo(token)
     count = 0
     count_F = 0
