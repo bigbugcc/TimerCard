@@ -45,14 +45,40 @@ Python == 3.7
     # 打卡位置
     def GetSchoolLocations()
 
+### · 数据库
+    学生表 "User"
+    "Id" TEXT NOT NULL,
+    "AttributionId" TEXT, #班级表id
+    "Email" TEXT,
+    "EmergencyContact" TEXT,
+    "Langtineadress" TEXT,
+    "MergencyPeoplePhone" TEXT,
+    "Name" TEXT NOT NULL,
+    "PhoneNumber" TEXT NOT NULL,
+    "StuId" TEXT NOT NULL,//学号
+    "TeachName" TEXT,
+    
+    班级表 "Attribution"
+    "Id" TEXT NOT NULL,
+    //班级名称
+    "classDescription" TEXT, 
+    //班级id
+    "classId" TEXT,
+    //学校id
+    "collegeId" TEXT,
+    //专业id
+    "majorId" TEXT
+
+
 
 ### · 关于 登录 和 IMEI获取问题
         现有的大部分打卡脚本都失效了，是由于获取手机IMEI串的问题，在使用打卡脚本之前请先在Android模拟器上进行登录并将模拟器上的IMEI复制下来填入配置文件中 即可成功使用脚本登录获取token来进行打卡，注意用于登录的账户请不要用手机登录，否则会导致脚本二次登录失败.
 
 ### · 打卡事项
 · 该脚本登录一次即可为数据库中的所有用户打卡(非跨校),服务器只校验打卡用户的学号(工号)，班级id，学校id以及姓名.
+  
+## · 关于
+· 有关于易校园打卡密码加盐请到Issues讨论(加密方式RSA)
 
 ## · 注意事项 
 · 该项目只用于学习研究请不要用于违规事宜，所造成的后果与作者无关.
-
-## ·
